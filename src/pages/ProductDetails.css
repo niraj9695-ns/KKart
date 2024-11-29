@@ -1,0 +1,527 @@
+.product-detail-container {
+  display: flex; /* Use flexbox for horizontal layout */
+  padding: 20px;
+  max-width: 1200px; /* Maximum width of the container */
+  margin: 0 auto;
+  background-color: #f4f3f5; /* Background color for the product detail section */
+}
+
+/* Left section: Image Carousel */
+.slider-container {
+  position: relative; /* Enables absolute positioning for .scroll-message */
+  flex: 0 1 300px; /* Default width for the image section */
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory; /* Snap to each image on scroll */
+  cursor: grab; /* Indicate draggable area */
+  flex-direction: row; /* Arrange images horizontally */
+  gap: 10px; /* Space between images */
+  padding-bottom: 10px; /* Padding for smooth scroll */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  aspect-ratio: 1; /* Maintain a square aspect ratio */
+  height: auto; /* Automatic height */
+}
+
+/* Hide scrollbar for WebKit browsers */
+.slider-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+/* Slider Image Container */
+.slider-image-container {
+  min-width: 100%; /* Each image takes full width of the container */
+  scroll-snap-align: center; /* Center align each image during snap */
+  transition: transform 0.5s ease; /* Smooth transition for scrolling */
+  display: flex; /* Flex layout for images */
+}
+
+.large-image {
+  width: 100%; /* Full width of container */
+  height: 100%; /* Full height of container to maintain aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns content to the left */
+  width: 50%; /* Full width */
+}
+
+/* Media Query for devices below 400px */
+@media (max-width: 400px) {
+  .product-detail-container {
+    flex-direction: column; /* Stack the product details below the slider */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .slider-container {
+    flex: 0 1 100%; /* Take full width for the slider */
+    height: 200px; /* Adjust height to ensure square aspect ratio */
+  }
+
+  .slider-wrapper {
+    width: 100%; /* Full width for the product details */
+    padding: 0; /* Remove padding for cleaner layout */
+  }
+
+  /* Adjust image height to maintain square aspect ratio */
+  .large-image {
+    height: 100%; /* Ensure height matches width */
+  }
+}
+.small-images-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to the next line */
+  width: 20%;
+  justify-content: flex-start; /* Aligns items to the start of the container (left side) */
+  padding-left: 0; /* Removes any padding from the left */
+  margin: 300px 150px 0px -540px;
+}
+
+.small-image-container {
+  flex: 0 0 calc(33.33% - 10px); /* Each container takes 1/3 of the row minus margin */
+  margin-bottom: 10px; /* Space between rows */
+  box-sizing: border-box; /* Includes padding and border in element's total width and height */
+}
+
+.small-image {
+  width: 80%; /* Makes images responsive */
+  height: auto; /* Maintains aspect ratio */
+}
+
+.small-image-container:hover {
+  transform: scale(1.05); /* Scale up on hover */
+}
+
+/* Active thumbnail style */
+.small-image.active {
+  border-color: #4a4948; /* Darker border for active thumbnail */
+}
+
+/* Media Queries for Different Widths */
+@media (max-width: 1300px) {
+  .small-image {
+    width: 50px; /* Maintain original size */
+    height: 50px; /* Maintain original size */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 20%;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 400px 200px 0px -540px; /* Space above the thumbnails */
+  }
+}
+@media (max-width: 1200px) {
+  .small-image {
+    width: 50px; /* Maintain original size */
+    height: 50px; /* Maintain original size */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 20%;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 400px 200px 0px -540px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 1100px) {
+  .small-image {
+    width: 48px; /* Slightly smaller size */
+    height: 48px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 20%;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 400px 250px 0px -490px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 1000px) {
+  .small-image {
+    width: 46px; /* Slightly smaller size */
+    height: 46px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 20%;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 400px 200px 0px -440px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 900px) {
+  .small-image {
+    width: 44px; /* Slightly smaller size */
+    height: 44px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 20%;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 300px 150px 0px -390px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 800px) {
+  .small-image {
+    width: 42px; /* Slightly smaller size */
+    height: 42px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 20%;
+    gap: 3px;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 300px 150px 0px -340px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 700px) {
+  .small-image {
+    width: 40px; /* Slightly smaller size */
+    height: 40px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    justify-content: center; /* Center the thumbnails horizontally */
+    width: 40%;
+    height: 20px;
+    gap: 1px;
+    justify-content: flex-start; /* Center the thumbnails horizontally */
+    margin: 300px 20px 0px -250px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 600px) {
+  .small-image {
+    width: 50px; /* Slightly smaller size */
+    height: 50px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 40%;
+    height: 50px;
+
+    justify-content: flex-start; /* Center the thumbnails horizontally */
+    margin: 300px 40px 0px -240px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 500px) {
+  .small-image {
+    width: 40px; /* Slightly smaller size */
+    height: 40px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    height: 40px;
+    gap: 1px;
+    width: 50%;
+    justify-content: flex-end; /* Center the thumbnails horizontally */
+    margin: 250px 40px 0px -220px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 400px) {
+  .small-image {
+    width: 34px; /* Slightly smaller size */
+    height: 34px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 50%;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 50px 100px 50px -1px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 300px) {
+  .small-image {
+    width: 32px; /* Slightly smaller size */
+    height: 32px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    width: 60%;
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 60px 50px 50px -1px; /* Space above the thumbnails */
+  }
+}
+
+@media (max-width: 200px) {
+  .small-image {
+    width: 30px; /* Smallest size */
+    height: 30px; /* Maintain aspect ratio */
+  }
+  .small-images-container {
+    display: flex; /* Align thumbnails in a row */
+    justify-content: center; /* Center the thumbnails horizontally */
+    margin: 150px 50px 0px -1px; /* Space above the thumbnails */
+  }
+}
+
+/* Right section: Product Info */
+.right-section {
+  flex: 1; /* Allocate remaining space for details */
+  padding-left: 20px; /* Space between image and details */
+}
+.right-section h2,
+.right-section p,
+.right-section .color-buttons,
+.right-section .dimension-dropdown {
+  margin-bottom: 15px; /* Ensure there's space between each section */
+}
+
+.color-buttons .variant-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.color-buttons .variant-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.dimension-dropdown select {
+  width: 20%;
+}
+
+.variant-info p {
+  margin-top: 10px;
+}
+
+/* Enhanced Scroll Message */
+.scroll-message {
+  position: absolute; /* Position below the slider */
+  top: 50%; /* Place it directly below the slider-container */
+  left: 20%;
+  transform: translateX(-50%); /* Center horizontally */
+  font-size: 16px; /* Font size */
+  color: #666; /* Color */
+  background-color: rgba(255, 255, 255, 0.9); /* Background color */
+  padding: 8px 16px; /* Padding */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  opacity: 0; /* Initially hidden */
+  animation: fadeInOut 3s ease forwards; /* Fade in and out */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+/* Fade-in-out animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 900px) {
+  .slider-container {
+    flex: 0 1 250px; /* Adjust width for smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .slider-container {
+    flex: 0 1 200px; /* Adjust width for mobile screens */
+  }
+
+  .scroll-message {
+    font-size: 14px; /* Smaller font size for mobile */
+  }
+}
+/* Wrapper for slider and dots */
+/* Wrapper for slider and dots aligned to the left */
+
+/* Dots container below the slider, aligned to the left */
+.dot-container {
+  display: flex;
+  margin-top: 10px; /* Space between slider and dots */
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: #bbb; /* Inactive dot color */
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #4a4948; /* Active dot color */
+}
+
+/* Responsive adjustments for dots */
+@media (max-width: 600px) {
+  .dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 4px;
+  }
+}
+
+/* Price Section */
+.price {
+  font-size: 24px; /* Price font size */
+  color: #b12704; /* Amazon-style price color */
+  margin: 10px 0; /* Space above and below price */
+}
+
+/* Stock Status */
+.in-stock {
+  font-size: 16px; /* In-stock font size */
+  font-weight: bold; /* Bold font */
+  color: #28a745; /* Green for in-stock */
+}
+
+.out-of-stock {
+  font-size: 16px; /* Out-of-stock font size */
+  font-weight: bold; /* Bold font */
+  color: #dc3545; /* Red for out-of-stock */
+}
+
+/* Key Features */
+.key-features {
+  margin-top: 20px; /* Space above key features */
+}
+
+.key-features h3 {
+  font-size: 20px; /* Key features heading size */
+  margin-bottom: 10px; /* Space below heading */
+  color: #333; /* Heading color */
+}
+
+.key-features ul {
+  padding-left: 20px; /* Padding for list */
+}
+
+.key-features ul li {
+  margin-bottom: 8px; /* Space between list items */
+  font-size: 14px; /* List item font size */
+  color: #555; /* List item color */
+}
+
+/* Additional Product Information */
+strong {
+  color: #333; /* Emphasize labels in additional information */
+}
+.color-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.color-swatch.active {
+  border-color: #000;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.color-swatch:hover {
+  border-color: #333;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.color-label {
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  display: none; /* Hide the color name on the swatch */
+}
+
+.color-swatch.active .color-label {
+  display: block; /* Show label on active swatch */
+}
+/* Styling for Variant Images Section */
+.variant-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.variant-buttons h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.variant-images {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.variant-image {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  width: 50px;
+  height: 50px;
+}
+
+.variant-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.variant-image.active {
+  border-color: #007bff; /* Highlight color for selected variant */
+  transform: scale(1.05); /* Slightly larger when active */
+}
+
+.variant-image:hover {
+  border-color: #555; /* Border color on hover */
+  transform: scale(1.1);
+}
+.cart-buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}

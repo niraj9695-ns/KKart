@@ -1,0 +1,116 @@
+/* Overall background */
+body {
+  background-color: #f5f5f5; /* Light grey background */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Categories container */
+.categories-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Individual category block */
+.category-block {
+  flex: 1;
+  max-width: 30%;
+  background-color: white; /* White container */
+  border: 1px solid #e0e0e0; /* Thin border */
+  padding: 15px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+/* Header with title and arrow button */
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.block-header h2 {
+  font-size: 16px;
+  margin: 0;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.arrow-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* Category items grid */
+.category-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Individual item */
+.category-item {
+  text-decoration: none;
+  color: #333;
+  background: white;
+  border: 1px solid #e0e0e0; /* Thin border */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  height: 200px; /* Increased height */
+  transition: transform 0.3s;
+}
+
+.category-item img {
+  width: 100%;
+  height: 120px; /* Adjusted height for uniformity */
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+
+.item-details {
+  text-align: left;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.item-discount {
+  font-size: 12px;
+  /* color: #007bff; */
+  color: green;
+  margin: 5px 0 0;
+}
+
+/* Hover effect */
+.category-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .categories-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .category-block {
+    max-width: 100%;
+  }
+
+  .category-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

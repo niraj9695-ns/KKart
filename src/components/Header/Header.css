@@ -1,0 +1,123 @@
+/*-----------------------------------------------------------------------------------------------------------*/
+
+/* General styles */
+.header {
+  background-color: #232f3e;
+  /* background-color: #523a28; */
+  color: white;
+}
+
+/* Top header styles */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.logo {
+  height: 50px;
+  margin-right: 15px;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  flex: 0.6; /* Make the search bar shorter */
+}
+
+.dropdown {
+  padding: 8px;
+  border: none;
+  margin-right: 5px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+}
+
+.search-button {
+  padding: 8px;
+  background-color: #febd69;
+  border: none;
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-right > span {
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+.wishlist-icon,
+.cart-icon {
+  font-size: 18px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.cart-count {
+  background: #f08804;
+  border-radius: 50%;
+  padding: 2px 8px;
+  margin-left: 5px;
+}
+
+/* Bottom navigation styles */
+.header-bottom {
+  display: flex;
+  padding: 10px 20px;
+  background-color: #37475a;
+  /* background-color: #d0b49f; */
+  overflow-x: auto;
+}
+
+.header-bottom a {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+.header-bottom a:hover {
+  color: #febd69;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-center {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .header-bottom {
+    flex-wrap: wrap;
+  }
+}
+
+/*-------------------------------------------------------------------------------------------------------*/
