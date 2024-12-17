@@ -1,17 +1,55 @@
-// //-----------------------------------------------------------------------------------
+// //----------------------------6 th dec
 
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom"; // Importing useNavigate for navigation
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 // import "./LoginPopup.css";
 
 // const LoginPopup = ({ onClose, onLogin }) => {
 //   const [email, setEmail] = useState("");
 //   const [password, setPassword] = useState("");
-//   const navigate = useNavigate(); // Initialize the navigate hook
+//   const [message, setMessage] = useState("");
+//   const [messageType, setMessageType] = useState("");
 
-//   const handleRegisterClick = () => {
-//     navigate("/user-registration"); // Navigate to the UserRegistration page
-//     onClose(); // Close the popup
+//   const handleLogin = () => {
+//     const payload = { email, password };
+//     console.log("Sending login payload:", payload);
+
+//     fetch("http://localhost:8080/user/login", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(payload),
+//     })
+//       .then((res) => {
+//         if (!res.ok) {
+//           throw new Error(`HTTP error! Status: ${res.status}`);
+//         }
+//         return res.json();
+//       })
+//       .then((data) => {
+//         console.log("Received login response:", data);
+//         if (data.data && data.data.id) {
+//           const userId = data.data.id;
+//           const userName = data.data.username;
+//           localStorage.setItem("userId", userId);
+//           localStorage.setItem("userName", userName);
+//           localStorage.setItem("userEmail", email);
+//           onLogin(userId, userName);
+//           setMessage("Login successful!");
+//           setMessageType("success");
+//           setTimeout(() => {
+//             setMessage("");
+//             onClose();
+//           }, 1500);
+//         } else {
+//           setMessage(data.message || "Invalid email or password.");
+//           setMessageType("error");
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Login error:", error);
+//         setMessage("Something went wrong. Please try again later.");
+//         setMessageType("error");
+//       });
 //   };
 
 //   return (
@@ -21,28 +59,22 @@
 //           X
 //         </button>
 //         <h3>Login</h3>
-//         <p>Access your orders, wishlist, and recommendations</p>
-//         <input
-//           type="email"
-//           placeholder="Enter your email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Enter your password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button onClick={() => onLogin(email, password)}>Login</button>
-//         <p>
-//           New to KitchenaryKart?{" "}
-//           <span className="register-link" onClick={handleRegisterClick}>
-//             Create an account
-//           </span>
-//         </p>
+//         {message && <p className={`message ${messageType}`}>{message}</p>}
+//         <div>
+//           <input
+//             type="email"
+//             placeholder="Enter your email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//           />
+//           <input
+//             type="password"
+//             placeholder="Enter your password"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//           />
+//           <button onClick={handleLogin}>Login</button>
+//         </div>
 //       </div>
 //     </div>
 //   );
@@ -50,10 +82,10 @@
 
 // export default LoginPopup;
 
-//-----------------------------------------------code with functionality to store user id for the session
+// ---------------------- 11 th decstoring region on login
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importing useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 import "./LoginPopup.css";
 
 const LoginPopup = ({ onClose, onLogin }) => {
@@ -61,66 +93,74 @@ const LoginPopup = ({ onClose, onLogin }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = () => {
-    console.log("Login initiated with:", { email, password }); // Debug email/password input
+    const payload = { email, password };
+    console.log("Sending login payload:", payload);
 
     fetch("http://localhost:8080/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(payload),
     })
       .then((res) => {
-        console.log("Response status:", res.status); // Log HTTP status for debugging
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
         return res.json();
       })
       .then((data) => {
-        console.log("API response:", data); // Log full API response
-
+        console.log("Received login response:", data);
         if (data.data && data.data.id) {
+          const userId = data.data.id;
+          const userName = data.data.username;
+
+          // Store basic user information in localStorage
+          localStorage.setItem("userId", userId);
+          localStorage.setItem("userName", userName);
+          localStorage.setItem("userEmail", email);
+
+          // Fetch user details to get the region (state)
+          fetch(`http://localhost:8080/user/${userId}`)
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error(
+                  `Failed to fetch user details! Status: ${res.status}`
+                );
+              }
+              return res.json();
+            })
+            .then((userDetails) => {
+              console.log("User details:", userDetails);
+
+              // Extract and store the region (state) in localStorage
+              const userRegion = userDetails.state;
+              if (userRegion) {
+                localStorage.setItem("userRegion", userRegion);
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching user details:", error);
+            });
+
+          // Proceed with login flow
+          onLogin(userId, userName);
           setMessage("Login successful!");
           setMessageType("success");
-
-          const userId = data.data.id; // Extract userId (id field from API response)
-          const userName = data.data.username; // Extract username
-
-          // Store userId and userName in local storage
-          localStorage.setItem("userId", userId);
-          console.log(
-            "userId stored in localStorage:",
-            localStorage.getItem("userId")
-          );
-
-          localStorage.setItem("userName", userName);
-          console.log(
-            "userName stored in localStorage:",
-            localStorage.getItem("userName")
-          );
-
-          onLogin(userId, userName); // Call the parent component's onLogin callback
-
-          // Clear message and close the popup after a delay
           setTimeout(() => {
             setMessage("");
             onClose();
           }, 1500);
         } else {
-          console.log("Login failed: Missing userId in response.");
           setMessage(data.message || "Invalid email or password.");
           setMessageType("error");
         }
       })
       .catch((error) => {
-        console.error("Error during login:", error); // Log any network or code errors
+        console.error("Login error:", error);
         setMessage("Something went wrong. Please try again later.");
         setMessageType("error");
       });
-  };
-
-  const handleRegisterClick = () => {
-    navigate("/user-registration"); // Redirect to the registration page
-    onClose(); // Close the login popup
   };
 
   return (
@@ -130,27 +170,22 @@ const LoginPopup = ({ onClose, onLogin }) => {
           X
         </button>
         <h3>Login</h3>
-        <p>Access your orders, wishlist, and recommendations</p>
         {message && <p className={`message ${messageType}`}>{message}</p>}
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleLogin}>Login</button>
-        <p>
-          New to KitchenaryKart?{" "}
-          <span className="register-link" onClick={handleRegisterClick}>
-            Create an account
-          </span>
-        </p>
+        <div>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={handleLogin}>Login</button>
+        </div>
       </div>
     </div>
   );

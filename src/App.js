@@ -80,10 +80,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 import UserRegistration from "./pages/UserRegistration";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import ProductDetails from "./pages/ProductDetails";
 import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
 function App() {
   return (
     <Router>
@@ -91,10 +93,12 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/user-registration" element={<UserRegistration />} />
           <Route path="/login" element={<LoginPopup />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart/:userId" element={<CartPage />} />
+          <Route path="/checkout/:userId" element={<CheckoutPage />} />
         </Routes>
         <Footer />
       </div>
